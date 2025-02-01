@@ -48,7 +48,7 @@ const Home = () => {
         <>
             <section className="max-w-8xl mx-auto  ">
                 <div>
-                    <h1 className="font-extrabold text-[#222328] text-[32px]  ">
+                    <h1 className="font-extrabold text-violet-800 text-[32px]  ">
                         {" "}
                         The Community Showcase{" "}
                     </h1>

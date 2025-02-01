@@ -11,12 +11,15 @@ const App = () => {
                     className="w-full flex justify-between items-center bg-[#313233] sm:px-8 px-4 py-4 border-b 
                 border-b-[#222] "
                 >
-                    <Link>
-                        <img
-                            src="logo.png"
-                            alt="logo"
-                            className="w-12 object-contain"
-                        />
+                    <Link to="/">
+                        <div className="flex">
+                            <img
+                                src="logo.png"
+                                alt="logo"
+                                className="w-12 object-contain"
+                            />
+                            <div className="ml-2 text-violet-600 text-2xl font-bold font-mono" >    Dall - e</div>
+                        </div>
                     </Link>
                     <Link
                         to="/create-post"

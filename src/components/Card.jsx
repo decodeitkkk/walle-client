@@ -1,4 +1,5 @@
 import React from "react";
+import { downloadImage } from "../utils";
 
 const Card = ({ _id, name, prompt, image }) => (
     <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
@@ -21,7 +22,7 @@ const Card = ({ _id, name, prompt, image }) => (
                 </div>
                 <button
                     type="button"
-                    onClick={() => downloadImage(_id, image)}
+                    onClick={() => downloadImage( image)}
                     className="outline-none bg-transparent border-none"
                 >
                     <img

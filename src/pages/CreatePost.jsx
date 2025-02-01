@@ -3,11 +3,12 @@ import { useNavigate } from "react-router";
 import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const CreatePost = () => {
     let navigate = useNavigate();
     const [form, setForm] = useState({
-        name: "asdf",
+        name: "",
         prompt: "",
         photo: "",
     });
@@ -30,7 +31,7 @@ const CreatePost = () => {
     const generateImage = async (e) => {
         e.preventDefault();
         try {
-            console.log("inside try catch", form);
+            setGenerating(true);
             let response = await axios.post(
                 `${import.meta.env.VITE_BASE_URL}/dalle`,
                 form
@@ -38,27 +39,35 @@ const CreatePost = () => {
             console.log(response);
 
             setForm({ ...form, photo: response?.data?.imageUrl });
+            setGenerating(false);
         } catch (error) {
             console.log(error);
+            setGenerating(false);
         }
         console.log(`generate image`);
     };
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(form);
-        try {
-            let resp = await axios.post(
-                `${import.meta.env.VITE_BASE_URL}/post`,
-                form
-            );
-            console.log(resp?.data);
-        } catch (error) {
-            console.log(error);
-        }
+
+        const submitPromise = axios.post(
+            `${import.meta.env.VITE_BASE_URL}/post`,
+            form
+        );
+
+        toast.promise(submitPromise, {
+            loading: "Sharing...",
+            success: "Shared successfully 🎉",
+            error:(error)=> `${error?.response?.data || "Something went wrong 🚨 "}`,
+        });
+
+        submitPromise.catch((error) => {
+            console.error(error.response.data);
+        });
     };
 
     return (
         <>
+            <Toaster />
             <section className="max-w-7xl mx-auto">
                 <div>
                     <h1 className="font-extrabold text-[#222328] text-[32px]">
